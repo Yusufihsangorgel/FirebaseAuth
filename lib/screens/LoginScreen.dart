@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import "package:todo/controllers/LoginController.dart";
+import 'package:todo/screens/HomeScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 150),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
@@ -96,7 +98,19 @@ class LoginScreen extends StatelessWidget {
                             );
                           });
                     }
-                  })
+                  }),
+              SizedBox(
+                height: 50,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(fontSize: 22)),
+                onPressed: () {
+                  print("2.Sayfaya geçiş yapıldı");
+                  Get.to(() => HomeScreen());
+                },
+                child: const Text('2.Sayfa'),
+              ),
             ],
           ),
         ),
