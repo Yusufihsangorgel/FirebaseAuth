@@ -74,14 +74,15 @@ class LoginScreen extends StatelessWidget {
                       child: Text("Şifremi Unuttum"), onPressed: () {})
                 ],
               ),
-              RaisedButton(
+              ElevatedButton(
                   child: Text("Giriş Yap"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                     }
-                    if (_username == "a" && _password == "a") {
+                    if (_username!.length > 3 && _password!.length > 3) {
                       debugPrint("Giriş başarılı");
+                      loginController.Login(_username, _password);
                     } else {
                       showDialog(
                           barrierDismissible: false,
