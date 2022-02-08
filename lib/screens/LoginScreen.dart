@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import "package:todo/controllers/LoginController.dart";
 import 'package:todo/screens/HomeScreen.dart';
+import 'package:todo/screens/RegisterScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class LoginScreen extends StatelessWidget {
 
   String? _username;
   String? _password;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -69,9 +71,54 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MaterialButton(child: Text("Üye Ol"), onPressed: () {}),
                   MaterialButton(
-                      child: Text("Şifremi Unuttum"), onPressed: () {})
+                      child: Text("Üye Ol"),
+                      onPressed: () {
+                        Get.to(() => RegisterScreen());
+                      }),
+                  MaterialButton(
+                      child: Text("Şifremi Unuttum"),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Material Dialog'),
+                                content: Text('Hey! I am Coflutter!'),
+                                actions: <Widget>[
+                                  TextFormField(
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.purple),
+                                      ),
+                                      labelText: "Şifre",
+                                      labelStyle:
+                                          TextStyle(color: Colors.purple),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Şifrenizi Giriniz";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    onSaved: (value) {
+                                      _password = value!;
+                                    },
+                                  ),
+                                  Text('Close'),
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text('HelloWorld!'),
+                                  )
+                                ],
+                              );
+                            });
+                      })
                 ],
               ),
               ElevatedButton(
@@ -102,15 +149,6 @@ class LoginScreen extends StatelessWidget {
                   }),
               SizedBox(
                 height: 50,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    textStyle: TextStyle(fontSize: 22)),
-                onPressed: () {
-                  print("2.Sayfaya geçiş yapıldı");
-                  Get.to(() => HomeScreen());
-                },
-                child: const Text('2.Sayfa'),
               ),
             ],
           ),
